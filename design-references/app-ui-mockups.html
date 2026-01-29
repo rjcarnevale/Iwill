@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iwill - App UI Mockups</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #0a0a0a;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .mockup-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+    }
+    .mockup-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .mockup-label {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #A855F7;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+    .phone-frame {
+      width: 280px;
+      height: 600px;
+      background: #1a1a1a;
+      border-radius: 32px;
+      border: 3px solid #333;
+      overflow: hidden;
+      position: relative;
+    }
+    .status-bar {
+      height: 36px;
+      background: #1a1a1a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: #A855F7;
+      letter-spacing: 1px;
+    }
+    
+    /* Create Will Screen */
+    .create-content {
+      padding: 20px 16px;
+    }
+    .create-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      color: #888;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .form-input {
+      width: 100%;
+      background: #242424;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 12px;
+      color: #fff;
+      font-size: 14px;
+    }
+    .form-input.large {
+      height: 80px;
+    }
+    .recipient-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #242424;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .recipient-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #A855F7, #6B21A8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .recipient-name {
+      color: #fff;
+      font-size: 14px;
+    }
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+    }
+    .toggle-label {
+      color: #fff;
+      font-size: 14px;
+    }
+    .toggle {
+      width: 44px;
+      height: 24px;
+      background: #A855F7;
+      border-radius: 12px;
+      position: relative;
+    }
+    .toggle::after {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      right: 3px;
+      top: 3px;
+    }
+    .submit-btn {
+      width: 100%;
+      background: #A855F7;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 16px;
+    }
+    
+    /* Profile Screen */
+    .profile-header {
+      text-align: center;
+      padding: 24px 16px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #A855F7, #6B21A8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 auto 12px;
+    }
+    .profile-name {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #fff;
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    .profile-username {
+      color: #A855F7;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    .profile-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #fff;
+      font-size: 24px;
+    }
+    .stat-label {
+      color: #666;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .profile-tabs {
+      display: flex;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .profile-tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .profile-tab.active {
+      color: #A855F7;
+      border-bottom: 2px solid #A855F7;
+    }
+    .profile-wills {
+      padding: 12px;
+    }
+    .mini-will {
+      background: #242424;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .mini-will-item {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .mini-will-to {
+      color: #888;
+      font-size: 12px;
+    }
+    .mini-will-to span {
+      color: #A855F7;
+    }
+    
+    /* Notifications Screen */
+    .notif-list {
+      padding: 12px;
+    }
+    .notif-item {
+      display: flex;
+      gap: 12px;
+      padding: 14px;
+      background: #242424;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      align-items: flex-start;
+    }
+    .notif-item.unread {
+      border-left: 3px solid #A855F7;
+    }
+    .notif-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .notif-content {
+      flex: 1;
+    }
+    .notif-text {
+      color: #fff;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .notif-text span {
+      color: #A855F7;
+      font-weight: 600;
+    }
+    .notif-time {
+      color: #666;
+      font-size: 11px;
+    }
+    
+    /* Settings Screen */
+    .settings-content {
+      padding: 16px;
+    }
+    .settings-section {
+      margin-bottom: 24px;
+    }
+    .settings-title {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #A855F7;
+      font-size: 16px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .settings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px;
+      background: #242424;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .settings-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .settings-icon {
+      font-size: 18px;
+    }
+    .settings-label {
+      color: #fff;
+      font-size: 14px;
+    }
+    .settings-arrow {
+      color: #666;
+      font-size: 18px;
+    }
+    .executor-box {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(107, 33, 168, 0.2));
+      border: 1px solid #A855F7;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .executor-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .executor-desc {
+      color: #888;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    
+    /* Nav bar */
+    .nav-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: #1a1a1a;
+      border-top: 1px solid #2a2a2a;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 8px;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #666;
+      font-size: 9px;
+    }
+    .nav-item.active {
+      color: #A855F7;
+    }
+    .nav-icon {
+      font-size: 20px;
+    }
+    .fab {
+      width: 44px;
+      height: 44px;
+      background: #A855F7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 24px;
+      margin-top: -16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mockup-grid">
+    
+    <!-- Create Will Screen -->
+    <div class="mockup-container">
+      <div class="mockup-label">CREATE WILL</div>
+      <div class="phone-frame">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>100%</span>
+        </div>
+        <div class="header">
+          <span style="color:#888">Cancel</span>
+          <div class="logo">NEW WILL</div>
+          <span style="color:#888;opacity:0">Cancel</span>
+        </div>
+        <div class="create-content">
+          <div class="form-group">
+            <label class="form-label">What are you willing?</label>
+            <div class="form-input large" style="display:flex;align-items:flex-start;padding-top:12px;">
+              <span style="color:#fff">My haunted Victorian doll...</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Who gets it?</label>
+            <div class="recipient-search">
+              <div class="recipient-avatar">BF</div>
+              <span class="recipient-name">@bestfrenemy</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Add a note (optional)</label>
+            <div class="form-input" style="color:#666">
+              Good luck with those eyes...
+            </div>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">Make it public</span>
+            <div class="toggle"></div>
+          </div>
+          <button class="submit-btn">Will It 💀</button>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><span class="nav-icon">🏠</span><span>Feed</span></div>
+          <div class="nav-item"><span class="nav-icon">🔍</span><span>Search</span></div>
+          <div class="fab">+</div>
+          <div class="nav-item"><span class="nav-icon">📬</span><span>Inbox</span></div>
+          <div class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Profile Screen -->
+    <div class="mockup-container">
+      <div class="mockup-label">PROFILE</div>
+      <div class="phone-frame">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>100%</span>
+        </div>
+        <div class="header">
+          <span style="color:#888;opacity:0">⚙️</span>
+          <div class="logo">PROFILE</div>
+          <span style="color:#888">⚙️</span>
+        </div>
+        <div class="profile-header">
+          <div class="profile-avatar">JD</div>
+          <div class="profile-name">JANE DOE</div>
+          <div class="profile-username">@janedoe</div>
+          <div class="profile-stats">
+            <div class="stat">
+              <div class="stat-number">24</div>
+              <div class="stat-label">Willed</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">12</div>
+              <div class="stat-label">Received</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">3</div>
+              <div class="stat-label">Declined</div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-tabs">
+          <div class="profile-tab active">My Wills</div>
+          <div class="profile-tab">Received</div>
+        </div>
+        <div class="profile-wills">
+          <div class="mini-will">
+            <div class="mini-will-item">HAUNTED VICTORIAN DOLL</div>
+            <div class="mini-will-to">to <span>@bestfrenemy</span></div>
+          </div>
+          <div class="mini-will">
+            <div class="mini-will-item">MY SPOTIFY PLAYLIST</div>
+            <div class="mini-will-to">to <span>@musiclover</span></div>
+          </div>
+          <div class="mini-will">
+            <div class="mini-will-item">STUDENT LOANS ($47K)</div>
+            <div class="mini-will-to">to <span>@myex</span></div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><span class="nav-icon">🏠</span><span>Feed</span></div>
+          <div class="nav-item"><span class="nav-icon">🔍</span><span>Search</span></div>
+          <div class="fab">+</div>
+          <div class="nav-item"><span class="nav-icon">📬</span><span>Inbox</span></div>
+          <div class="nav-item active"><span class="nav-icon">👤</span><span>Profile</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Notifications Screen -->
+    <div class="mockup-container">
+      <div class="mockup-label">NOTIFICATIONS</div>
+      <div class="phone-frame">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>100%</span>
+        </div>
+        <div class="header">
+          <div class="logo">INBOX 💀</div>
+          <span style="color:#888">Mark read</span>
+        </div>
+        <div class="notif-list">
+          <div class="notif-item unread">
+            <div class="notif-icon">⚰️</div>
+            <div class="notif-content">
+              <div class="notif-text"><span>@richuncle</span> willed you something! Tap to see what you got.</div>
+              <div class="notif-time">Just now</div>
+            </div>
+          </div>
+          <div class="notif-item unread">
+            <div class="notif-icon">💀</div>
+            <div class="notif-content">
+              <div class="notif-text"><span>@bestfrenemy</span> reacted 💀 to your haunted doll will</div>
+              <div class="notif-time">2 hours ago</div>
+            </div>
+          </div>
+          <div class="notif-item">
+            <div class="notif-icon">✓</div>
+            <div class="notif-content">
+              <div class="notif-text"><span>@brother_dan</span> accepted your will! Mr. Whiskers is officially his problem now.</div>
+              <div class="notif-time">Yesterday</div>
+            </div>
+          </div>
+          <div class="notif-item">
+            <div class="notif-icon">✕</div>
+            <div class="notif-content">
+              <div class="notif-text"><span>@myex</span> declined your student loans. Harsh.</div>
+              <div class="notif-time">2 days ago</div>
+            </div>
+          </div>
+          <div class="notif-item">
+            <div class="notif-icon">🔥</div>
+            <div class="notif-content">
+              <div class="notif-text">Your will is trending! 500+ reactions on your student loans post.</div>
+              <div class="notif-time">3 days ago</div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><span class="nav-icon">🏠</span><span>Feed</span></div>
+          <div class="nav-item"><span class="nav-icon">🔍</span><span>Search</span></div>
+          <div class="fab">+</div>
+          <div class="nav-item active"><span class="nav-icon">📬</span><span>Inbox</span></div>
+          <div class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Settings Screen -->
+    <div class="mockup-container">
+      <div class="mockup-label">SETTINGS</div>
+      <div class="phone-frame">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>100%</span>
+        </div>
+        <div class="header">
+          <span style="color:#888">← Back</span>
+          <div class="logo">SETTINGS</div>
+          <span style="color:#888;opacity:0">Back</span>
+        </div>
+        <div class="settings-content">
+          <div class="settings-section">
+            <div class="settings-title">⚰️ EXECUTOR</div>
+            <div class="executor-box">
+              <div class="executor-title">⚰️ Choose Your Executor</div>
+              <div class="executor-desc">Pick someone to access all your wills when you're gone. They'll receive an email letting them know they've been chosen.</div>
+              <div class="settings-item" style="margin-top:12px;margin-bottom:0">
+                <div class="settings-item-left">
+                  <div class="recipient-avatar" style="width:28px;height:28px;font-size:10px">MK</div>
+                  <span class="settings-label">@mom_knows_best</span>
+                </div>
+                <span class="settings-arrow">✓</span>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <div class="settings-title">ACCOUNT</div>
+            <div class="settings-item">
+              <div class="settings-item-left">
+                <span class="settings-icon">👤</span>
+                <span class="settings-label">Edit Profile</span>
+              </div>
+              <span class="settings-arrow">›</span>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-left">
+                <span class="settings-icon">🔔</span>
+                <span class="settings-label">Notifications</span>
+              </div>
+              <span class="settings-arrow">›</span>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-left">
+                <span class="settings-icon">🔒</span>
+                <span class="settings-label">Privacy</span>
+              </div>
+              <span class="settings-arrow">›</span>
+            </div>
+          </div>
+          <div class="settings-section">
+            <div class="settings-title">ABOUT</div>
+            <div class="settings-item">
+              <div class="settings-item-left">
+                <span class="settings-icon">📜</span>
+                <span class="settings-label">Terms of Service</span>
+              </div>
+              <span class="settings-arrow">›</span>
+            </div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><span class="nav-icon">🏠</span><span>Feed</span></div>
+          <div class="nav-item"><span class="nav-icon">🔍</span><span>Search</span></div>
+          <div class="fab">+</div>
+          <div class="nav-item"><span class="nav-icon">📬</span><span>Inbox</span></div>
+          <div class="nav-item active"><span class="nav-icon">👤</span><span>Profile</span></div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

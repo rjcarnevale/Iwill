@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iwill - Will Card Mockups</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #0a0a0a;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 30px;
+    }
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #A855F7;
+      font-size: 24px;
+      letter-spacing: 2px;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 20px;
+    }
+    .will-card {
+      width: 100%;
+      max-width: 400px;
+      background: #1a1a1a;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid #2a2a2a;
+    }
+    .will-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #A855F7, #6B21A8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .avatar.img {
+      background-size: cover;
+      background-position: center;
+    }
+    .will-user-info {
+      flex: 1;
+    }
+    .will-username {
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+    .will-time {
+      color: #666;
+      font-size: 13px;
+    }
+    .will-status {
+      background: #22C55E;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .will-status.pending {
+      background: #F59E0B;
+    }
+    .will-status.declined {
+      background: #EF4444;
+    }
+    .will-content {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .will-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .will-description {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .will-recipient {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .will-recipient-label {
+      color: #666;
+      font-size: 13px;
+    }
+    .will-recipient-name {
+      color: #A855F7;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .reactions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .reaction {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #242424;
+      padding: 8px 14px;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .reaction:hover {
+      background: #2a2a2a;
+    }
+    .reaction.active {
+      background: rgba(168, 85, 247, 0.15);
+      border-color: #A855F7;
+    }
+    .reaction-emoji {
+      font-size: 18px;
+    }
+    .reaction-count {
+      color: #999;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .reaction.active .reaction-count {
+      color: #A855F7;
+    }
+    
+    /* Compact variant */
+    .will-card.compact {
+      padding: 16px;
+    }
+    .will-card.compact .avatar {
+      width: 40px;
+      height: 40px;
+      font-size: 14px;
+    }
+    .will-card.compact .will-item {
+      font-size: 22px;
+    }
+    .will-card.compact .reaction {
+      padding: 6px 10px;
+    }
+    .will-card.compact .reaction-emoji {
+      font-size: 14px;
+    }
+    
+    /* With image variant */
+    .will-image {
+      width: 100%;
+      height: 200px;
+      background: #242424;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    /* Accept/Decline buttons */
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .action-btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+    .action-btn.accept {
+      background: #A855F7;
+      color: #fff;
+    }
+    .action-btn.decline {
+      background: #2a2a2a;
+      color: #888;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>STANDARD WILL CARD</h2>
+  <div class="will-card">
+    <div class="will-header">
+      <div class="avatar">JD</div>
+      <div class="will-user-info">
+        <div class="will-username">@janedoe</div>
+        <div class="will-time">2 hours ago</div>
+      </div>
+      <div class="will-status">Accepted</div>
+    </div>
+    <div class="will-content">
+      <div class="will-item">MY HAUNTED VICTORIAN DOLL</div>
+      <div class="will-description">She's been in the family for 3 generations. Her eyes follow you. Good luck. 👁️</div>
+      <div class="will-recipient">
+        <span class="will-recipient-label">willed to</span>
+        <span class="will-recipient-name">@bestfrenemy</span>
+      </div>
+    </div>
+    <div class="reactions">
+      <div class="reaction active">
+        <span class="reaction-emoji">💀</span>
+        <span class="reaction-count">124</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">😂</span>
+        <span class="reaction-count">89</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">🔥</span>
+        <span class="reaction-count">34</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">👀</span>
+        <span class="reaction-count">56</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">💰</span>
+        <span class="reaction-count">12</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>PENDING - RECIPIENT VIEW</h2>
+  <div class="will-card">
+    <div class="will-header">
+      <div class="avatar">MK</div>
+      <div class="will-user-info">
+        <div class="will-username">@mikewills</div>
+        <div class="will-time">Just now</div>
+      </div>
+      <div class="will-status pending">Pending</div>
+    </div>
+    <div class="will-content">
+      <div class="will-item">2019 TESLA MODEL 3</div>
+      <div class="will-description">Minor scratches. Major memories. It's yours now.</div>
+      <div class="will-recipient">
+        <span class="will-recipient-label">willed to</span>
+        <span class="will-recipient-name">you</span>
+      </div>
+    </div>
+    <div class="reactions">
+      <div class="reaction">
+        <span class="reaction-emoji">💀</span>
+        <span class="reaction-count">8</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">🔥</span>
+        <span class="reaction-count">23</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">💰</span>
+        <span class="reaction-count">45</span>
+      </div>
+    </div>
+    <div class="action-buttons">
+      <button class="action-btn accept">Accept ✓</button>
+      <button class="action-btn decline">Decline ✕</button>
+    </div>
+  </div>
+
+  <h2>DECLINED WILL</h2>
+  <div class="will-card">
+    <div class="will-header">
+      <div class="avatar">SK</div>
+      <div class="will-user-info">
+        <div class="will-username">@sarahk</div>
+        <div class="will-time">Yesterday</div>
+      </div>
+      <div class="will-status declined">Declined</div>
+    </div>
+    <div class="will-content">
+      <div class="will-item">$47,000 IN STUDENT LOANS</div>
+      <div class="will-description">Surprise! You're now responsible for my bad decisions. 🎓</div>
+      <div class="will-recipient">
+        <span class="will-recipient-label">willed to</span>
+        <span class="will-recipient-name">@myex</span>
+      </div>
+    </div>
+    <div class="reactions">
+      <div class="reaction active">
+        <span class="reaction-emoji">💀</span>
+        <span class="reaction-count">2.4k</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">😂</span>
+        <span class="reaction-count">1.8k</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">👀</span>
+        <span class="reaction-count">892</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>COMPACT CARD (FOR LISTS)</h2>
+  <div class="will-card compact">
+    <div class="will-header">
+      <div class="avatar">RC</div>
+      <div class="will-user-info">
+        <div class="will-username">@richcousin</div>
+        <div class="will-time">3 days ago</div>
+      </div>
+      <div class="will-status">Accepted</div>
+    </div>
+    <div class="will-content">
+      <div class="will-item">BITCOIN WALLET (0.5 BTC)</div>
+      <div class="will-recipient">
+        <span class="will-recipient-label">willed to</span>
+        <span class="will-recipient-name">@luckysister</span>
+      </div>
+    </div>
+    <div class="reactions">
+      <div class="reaction">
+        <span class="reaction-emoji">💰</span>
+        <span class="reaction-count">567</span>
+      </div>
+      <div class="reaction">
+        <span class="reaction-emoji">🔥</span>
+        <span class="reaction-count">234</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

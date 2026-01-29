@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iwill - Claim Page Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #111;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+      border-radius: 40px;
+      border: 4px solid #333;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .status-bar {
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .coffin-emoji {
+      font-size: 80px;
+      margin-bottom: 24px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .claim-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: #A855F7;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    .claim-subtitle {
+      font-size: 18px;
+      color: #888;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
+    .mystery-box {
+      width: 100%;
+      background: #242424;
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 32px;
+      border: 2px dashed #A855F7;
+      position: relative;
+    }
+    .mystery-box::before {
+      content: '?';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #A855F7;
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .from-label {
+      color: #666;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .from-name {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .item-preview {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .item-label {
+      color: #666;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .item-hidden {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: #A855F7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .blur-text {
+      filter: blur(8px);
+      color: #fff;
+      user-select: none;
+    }
+    .claim-btn {
+      width: 100%;
+      background: #A855F7;
+      color: #fff;
+      border: none;
+      padding: 18px 32px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.4);
+    }
+    .claim-subtext {
+      color: #666;
+      font-size: 13px;
+    }
+    .logo-footer {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .logo-footer span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>⚡ 100%</span>
+    </div>
+    
+    <div class="content">
+      <div class="coffin-emoji">⚰️</div>
+      <div class="claim-title">SOMEONE LEFT YOU SOMETHING</div>
+      <div class="claim-subtitle">(hopefully not their problems)</div>
+      
+      <div class="mystery-box">
+        <div class="from-label">From</div>
+        <div class="from-name">@janedoe</div>
+        
+        <div class="item-preview">
+          <div class="item-label">They willed you</div>
+          <div class="item-hidden">
+            <span class="blur-text">HAUNTED DOLL</span>
+            <span>🔒</span>
+          </div>
+        </div>
+      </div>
+      
+      <button class="claim-btn">Sign Up to See What You Got 💀</button>
+      <div class="claim-subtext">Free. Takes 30 seconds. Regret optional.</div>
+    </div>
+    
+    <div class="logo-footer">
+      <span>IWILL 💀</span>
+    </div>
+  </div>
+</body>
+</html>

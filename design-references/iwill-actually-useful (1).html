@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iwill — Actually Useful</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0f;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      color: #fff;
+    }
+    
+    .section {
+      max-width: 800px;
+      width: 100%;
+    }
+    
+    .section-label {
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #a855f7;
+      margin-bottom: 12px;
+    }
+    
+    h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    
+    .subtitle {
+      font-size: 18px;
+      color: #9ca3af;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .feature-card {
+      background: linear-gradient(155deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    
+    .feature-card .icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .feature-card p {
+      font-size: 14px;
+      color: #9ca3af;
+      line-height: 1.5;
+    }
+    
+    .export-preview {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      color: #1a1a2e;
+    }
+    
+    .export-preview .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .export-preview .logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .export-preview .logo span {
+      color: #a855f7;
+    }
+    
+    .export-preview .doc-info {
+      text-align: right;
+      font-size: 13px;
+      color: #6b7280;
+    }
+    
+    .export-preview .doc-info strong {
+      display: block;
+      font-size: 14px;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+    
+    .export-preview h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    
+    .export-preview .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .export-preview .item-row:last-child {
+      border-bottom: none;
+    }
+    
+    .export-preview .item-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+    
+    .export-preview .item-category {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+    
+    .export-preview .item-recipient {
+      text-align: right;
+    }
+    
+    .export-preview .recipient-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+    
+    .export-preview .recipient-relation {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+    
+    .export-preview .footer {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 2px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .export-preview .footer-text {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    
+    .export-preview .export-btn {
+      background: linear-gradient(90deg, #7c3aed, #db2777);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    .disclaimer {
+      margin-top: 32px;
+      padding: 20px;
+      background: rgba(168, 85, 247, 0.1);
+      border-radius: 12px;
+      border-left: 4px solid #a855f7;
+    }
+    
+    .disclaimer p {
+      font-size: 14px;
+      color: #9ca3af;
+      line-height: 1.6;
+    }
+    
+    .disclaimer strong {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <div class="section-label">Actually Useful</div>
+    <h2>More than memes.<br>Real estate planning.</h2>
+    <p class="subtitle">The social feed is fun, but underneath it all is a real tool. Organize everything you own, assign it to the people who matter, and export a lawyer-ready document when you're done.</p>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">📋</div>
+        <h3>Comprehensive Inventory</h3>
+        <p>Track everything from property and vehicles to sentimental items and digital assets. Add photos, notes, and estimated values.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">👥</div>
+        <h3>Recipient Management</h3>
+        <p>Add family, friends, charities. See at a glance who's getting what — and make sure nobody's left out (unless intentionally).</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📄</div>
+        <h3>Export to PDF</h3>
+        <p>Generate a clean, formatted document ready to share with your estate attorney. No legal jargon — just clear intentions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔒</div>
+        <h3>Private by Default</h3>
+        <p>Your will is yours. Only share to the public feed what you want. Keep the rest between you and your recipients.</p>
+      </div>
+    </div>
+    
+    <div class="export-preview">
+      <div class="header">
+        <div class="logo">Iwill<span>💀</span></div>
+        <div class="doc-info">
+          <strong>Estate Inventory</strong>
+          Margaret Reynolds<br>
+          Generated Jan 28, 2025
+        </div>
+      </div>
+      
+      <h4>Bequests (7 items)</h4>
+      
+      <div class="item-row">
+        <div>
+          <div class="item-name">House at 442 Maple Street</div>
+          <div class="item-category">Real Estate • Est. $485,000</div>
+        </div>
+        <div class="item-recipient">
+          <div class="recipient-name">Sarah Reynolds</div>
+          <div class="recipient-relation">Daughter</div>
+        </div>
+      </div>
+      
+      <div class="item-row">
+        <div>
+          <div class="item-name">2019 Honda CR-V</div>
+          <div class="item-category">Vehicle • Est. $22,000</div>
+        </div>
+        <div class="item-recipient">
+          <div class="recipient-name">Michael Reynolds</div>
+          <div class="recipient-relation">Son</div>
+        </div>
+      </div>
+      
+      <div class="item-row">
+        <div>
+          <div class="item-name">Grandmother's Engagement Ring</div>
+          <div class="item-category">Jewelry • Est. $8,500</div>
+        </div>
+        <div class="item-recipient">
+          <div class="recipient-name">Emma Reynolds</div>
+          <div class="recipient-relation">Granddaughter</div>
+        </div>
+      </div>
+      
+      <div class="item-row">
+        <div>
+          <div class="item-name">Victorian Porcelain Doll</div>
+          <div class="item-category">Sentimental • Priceless</div>
+        </div>
+        <div class="item-recipient">
+          <div class="recipient-name">Derek Reynolds</div>
+          <div class="recipient-relation">Nephew</div>
+        </div>
+      </div>
+      
+      <div class="item-row">
+        <div>
+          <div class="item-name">Retirement Account (Fidelity)</div>
+          <div class="item-category">Financial • Est. $142,000</div>
+        </div>
+        <div class="item-recipient">
+          <div class="recipient-name">Split evenly</div>
+          <div class="recipient-relation">Sarah & Michael</div>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <div class="footer-text"></div>
+        <button class="export-btn">📄 Export PDF</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

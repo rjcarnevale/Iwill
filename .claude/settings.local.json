@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss init -p)",
+      "Bash(npm run build:*)",
+      "WebFetch(domain:gotwilled.com)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx tsx:*)",
+      "Bash(npm run dev:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

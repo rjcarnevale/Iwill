@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iwill - Main Feed Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #111;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: #1a1a1a;
+      border-radius: 40px;
+      border: 4px solid #333;
+      overflow: hidden;
+      position: relative;
+    }
+    .status-bar {
+      height: 44px;
+      background: #1a1a1a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: #A855F7;
+      letter-spacing: 1px;
+    }
+    .header-icons {
+      display: flex;
+      gap: 16px;
+    }
+    .header-icon {
+      width: 24px;
+      height: 24px;
+      background: #333;
+      border-radius: 50%;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .tab {
+      flex: 1;
+      padding: 14px;
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .tab.active {
+      color: #A855F7;
+      border-bottom: 2px solid #A855F7;
+    }
+    .feed {
+      padding: 16px;
+      overflow-y: auto;
+      height: calc(100% - 180px);
+    }
+    .will-card {
+      background: #242424;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .will-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #A855F7, #6B21A8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .will-user-info {
+      flex: 1;
+    }
+    .will-username {
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .will-time {
+      color: #666;
+      font-size: 12px;
+    }
+    .will-status {
+      background: #A855F7;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .will-status.pending {
+      background: #F59E0B;
+    }
+    .will-status.declined {
+      background: #EF4444;
+    }
+    .will-content {
+      margin-bottom: 14px;
+    }
+    .will-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .will-recipient {
+      color: #A855F7;
+      font-size: 14px;
+    }
+    .will-recipient span {
+      color: #888;
+    }
+    .reactions {
+      display: flex;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid #333;
+    }
+    .reaction {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #333;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+    .reaction-emoji {
+      font-size: 16px;
+    }
+    .reaction-count {
+      color: #999;
+      font-size: 12px;
+    }
+    .reaction.active {
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid #A855F7;
+    }
+    .nav-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: #1a1a1a;
+      border-top: 1px solid #2a2a2a;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 20px;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #666;
+      font-size: 10px;
+    }
+    .nav-item.active {
+      color: #A855F7;
+    }
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+      background: currentColor;
+      border-radius: 6px;
+      opacity: 0.5;
+    }
+    .nav-item.active .nav-icon {
+      opacity: 1;
+    }
+    .fab {
+      width: 56px;
+      height: 56px;
+      background: #A855F7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 28px;
+      margin-top: -20px;
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>⚡ 100%</span>
+    </div>
+    
+    <div class="header">
+      <div class="logo">IWILL 💀</div>
+      <div class="header-icons">
+        <div class="header-icon"></div>
+        <div class="header-icon"></div>
+      </div>
+    </div>
+    
+    <div class="tabs">
+      <div class="tab active">All</div>
+      <div class="tab">Following</div>
+      <div class="tab">My Wills</div>
+    </div>
+    
+    <div class="feed">
+      <div class="will-card">
+        <div class="will-header">
+          <div class="avatar">JM</div>
+          <div class="will-user-info">
+            <div class="will-username">@janedoe</div>
+            <div class="will-time">2 hours ago</div>
+          </div>
+          <div class="will-status">ACCEPTED</div>
+        </div>
+        <div class="will-content">
+          <div class="will-item">MY HAUNTED VICTORIAN DOLL</div>
+          <div class="will-recipient"><span>willed to</span> @bestfrenemy</div>
+        </div>
+        <div class="reactions">
+          <div class="reaction active">
+            <span class="reaction-emoji">💀</span>
+            <span class="reaction-count">24</span>
+          </div>
+          <div class="reaction">
+            <span class="reaction-emoji">😂</span>
+            <span class="reaction-count">18</span>
+          </div>
+          <div class="reaction">
+            <span class="reaction-emoji">🔥</span>
+            <span class="reaction-count">7</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="will-card">
+        <div class="will-header">
+          <div class="avatar">MK</div>
+          <div class="will-user-info">
+            <div class="will-username">@mikewills</div>
+            <div class="will-time">5 hours ago</div>
+          </div>
+          <div class="will-status pending">PENDING</div>
+        </div>
+        <div class="will-content">
+          <div class="will-item">$47,000 IN STUDENT LOANS</div>
+          <div class="will-recipient"><span>willed to</span> @myex</div>
+        </div>
+        <div class="reactions">
+          <div class="reaction">
+            <span class="reaction-emoji">💀</span>
+            <span class="reaction-count">142</span>
+          </div>
+          <div class="reaction active">
+            <span class="reaction-emoji">😂</span>
+            <span class="reaction-count">89</span>
+          </div>
+          <div class="reaction">
+            <span class="reaction-emoji">👀</span>
+            <span class="reaction-count">34</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="will-card">
+        <div class="will-header">
+          <div class="avatar">SK</div>
+          <div class="will-user-info">
+            <div class="will-username">@sarahk</div>
+            <div class="will-time">Yesterday</div>
+          </div>
+          <div class="will-status declined">DECLINED</div>
+        </div>
+        <div class="will-content">
+          <div class="will-item">MR. WHISKERS (THE MEAN CAT)</div>
+          <div class="will-recipient"><span>willed to</span> @brother_dan</div>
+        </div>
+        <div class="reactions">
+          <div class="reaction">
+            <span class="reaction-emoji">💀</span>
+            <span class="reaction-count">56</span>
+          </div>
+          <div class="reaction">
+            <span class="reaction-emoji">😂</span>
+            <span class="reaction-count">203</span>
+          </div>
+          <div class="reaction">
+            <span class="reaction-emoji">🔥</span>
+            <span class="reaction-count">12</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="nav-bar">
+      <div class="nav-item active">
+        <div class="nav-icon"></div>
+        <span>Feed</span>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon"></div>
+        <span>Search</span>
+      </div>
+      <div class="fab">+</div>
+      <div class="nav-item">
+        <div class="nav-icon"></div>
+        <span>Inbox</span>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon"></div>
+        <span>Profile</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
