@@ -221,7 +221,7 @@ export default function NewWillPage() {
             disabled={loading || !item.trim()}
             className="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium hover:bg-white/30 transition disabled:opacity-50"
           >
-            {loading ? (uploadingImage ? "Uploading..." : "Posting...") : "Post"}
+            {loading ? (uploadingImage ? "Uploading..." : "Willing...") : "Will It 💀"}
           </button>
         </div>
       </header>
@@ -442,11 +442,20 @@ export default function NewWillPage() {
 
             {error && <p className="text-red-400 text-sm">{error}</p>}
 
-            <p className="text-[var(--text-muted)] text-sm">
+            <p className="text-[var(--text-muted)] text-sm mb-6">
               {isPublic
                 ? "Everyone will see this in their feed."
                 : "Only you and the recipient will see this."}
             </p>
+
+            {/* Big Will It button */}
+            <button
+              type="submit"
+              disabled={loading || !item.trim()}
+              className="w-full gradient-cta py-4 rounded-full font-bold text-lg hover:opacity-90 transition disabled:opacity-50"
+            >
+              {loading ? (uploadingImage ? "Uploading..." : "Willing...") : "Will It 💀"}
+            </button>
           </div>
         </form>
       </div>
