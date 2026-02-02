@@ -36,9 +36,10 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
   const isOwner = currentUserId === will.giver_id;
   const isRecipient = currentUserId === will.recipient_id;
 
-  // Pick a consistent random tag based on will id
-  const tagIndex = will.id.charCodeAt(0) % TAGS.length;
-  const tag = TAGS[tagIndex];
+  // Use selected tag or fall back to random based on will id
+  const selectedTag = will.tag ? TAGS.find(t => t.name === will.tag) : null;
+  const fallbackTagIndex = will.id.charCodeAt(0) % TAGS.length;
+  const tag = selectedTag || TAGS[fallbackTagIndex];
 
   useEffect(() => {
     const supabase = createClient();

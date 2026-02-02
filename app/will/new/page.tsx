@@ -15,6 +15,16 @@ const ITEM_EMOJIS = [
   "🦜", "🐠", "🦇", "🐊", "🦎", "🕷️", "🧿", "🔮", "⚗️", "🧪",
 ];
 
+const TAGS = [
+  { name: "CURSED", color: "#ec4899" },
+  { name: "HAUNTED", color: "#A855F7" },
+  { name: "ACTUALLY COOL", color: "#10b981" },
+  { name: "DISPUTED", color: "#f59e0b" },
+  { name: "SENTIMENTAL", color: "#3b82f6" },
+  { name: "QUESTIONABLE", color: "#f97316" },
+  { name: "EMOTIONAL BAGGAGE", color: "#f43f5e" },
+];
+
 export default function NewWillPage() {
   const [item, setItem] = useState("");
   const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null);
@@ -28,6 +38,7 @@ export default function NewWillPage() {
   const [selectedUser, setSelectedUser] = useState<Profile | null>(null);
   const [searchResults, setSearchResults] = useState<Profile[]>([]);
   const [isPublic, setIsPublic] = useState(true);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -123,6 +134,7 @@ export default function NewWillPage() {
       is_public: boolean;
       emoji?: string;
       image_url?: string;
+      tag?: string;
       recipient_id?: string;
       recipient_email?: string;
     } = {
@@ -137,6 +149,10 @@ export default function NewWillPage() {
 
     if (imageUrl) {
       willData.image_url = imageUrl;
+    }
+
+    if (selectedTag) {
+      willData.tag = selectedTag;
     }
 
     if (recipientType === "user" && selectedUser) {
@@ -420,6 +436,30 @@ export default function NewWillPage() {
                   className="w-full bg-[var(--background)] border border-[var(--card-border)] rounded-lg py-3 px-3 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--pink)]"
                 />
               )}
+            </div>
+
+            {/* Tag selector */}
+            <div>
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                Tag this item
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {TAGS.map((tag) => (
+                  <button
+                    key={tag.name}
+                    type="button"
+                    onClick={() => setSelectedTag(selectedTag === tag.name ? null : tag.name)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold uppercase transition ${
+                      selectedTag === tag.name
+                        ? "ring-2 ring-white"
+                        : "opacity-70 hover:opacity-100"
+                    }`}
+                    style={{ backgroundColor: tag.color + "30", color: tag.color }}
+                  >
+                    {tag.name}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Public toggle */}

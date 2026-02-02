@@ -18,6 +18,7 @@ export interface Will {
   item_description: string;
   emoji: string | null;
   image_url: string | null;
+  tag: string | null;
   is_public: boolean;
   status: WillStatus;
   created_at: string;
