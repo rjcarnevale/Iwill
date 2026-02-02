@@ -8,13 +8,22 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const TAGS = [
+  // Fun ones
   { name: "CURSED", color: "#ec4899" },
   { name: "HAUNTED", color: "#A855F7" },
-  { name: "ACTUALLY COOL", color: "#10b981" },
-  { name: "DISPUTED", color: "#f59e0b" },
-  { name: "SENTIMENTAL", color: "#3b82f6" },
-  { name: "QUESTIONABLE", color: "#f97316" },
   { name: "EMOTIONAL BAGGAGE", color: "#f43f5e" },
+  { name: "QUESTIONABLE", color: "#f97316" },
+  { name: "DISPUTED", color: "#f59e0b" },
+  // Realistic ones
+  { name: "SENTIMENTAL", color: "#3b82f6" },
+  { name: "VALUABLE", color: "#eab308" },
+  { name: "HEIRLOOM", color: "#8b5cf6" },
+  { name: "PRACTICAL", color: "#6b7280" },
+  { name: "RARE", color: "#06b6d4" },
+  { name: "HANDMADE", color: "#f472b6" },
+  { name: "VINTAGE", color: "#a78bfa" },
+  { name: "COLLECTIBLE", color: "#34d399" },
+  { name: "ONE OF A KIND", color: "#fbbf24" },
 ];
 
 interface WillCardProps {
