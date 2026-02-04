@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { WillCard } from "@/components/WillCard";
-import { Will } from "@/lib/types";
+import { ExportWillButton } from "@/components/ExportWillButton";
+import { Will, Profile } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -113,12 +114,15 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                 </div>
               </div>
               {isOwnProfile && (
-                <Link
-                  href="/profile/settings"
-                  className="px-4 py-1.5 border border-[var(--card-border)] rounded-full text-sm hover:bg-white/5 transition"
-                >
-                  Edit profile
-                </Link>
+                <div className="flex flex-col gap-2">
+                  <Link
+                    href="/profile/settings"
+                    className="px-4 py-1.5 border border-[var(--card-border)] rounded-full text-sm hover:bg-white/5 transition text-center"
+                  >
+                    Edit profile
+                  </Link>
+                  <ExportWillButton profile={profile as Profile} wills={(wills as Will[]) || []} />
+                </div>
               )}
             </div>
 
