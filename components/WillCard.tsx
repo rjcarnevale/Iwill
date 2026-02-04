@@ -40,6 +40,8 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
   const [isDeleting, setIsDeleting] = useState(false);
   const [status, setStatus] = useState(will.status);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+  const [isPublic, setIsPublic] = useState(will.is_public);
+  const [isTogglingVisibility, setIsTogglingVisibility] = useState(false);
   const router = useRouter();
 
   const isOwner = currentUserId === will.giver_id;
@@ -166,6 +168,27 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
     router.push(`/will/${will.id}/edit`);
   };
 
+  const handleToggleVisibility = async () => {
+    if (!currentUserId || !isOwner) return;
+
+    setIsTogglingVisibility(true);
+    const supabase = createClient();
+
+    const newVisibility = !isPublic;
+    const { error } = await supabase
+      .from("wills")
+      .update({ is_public: newVisibility })
+      .eq("id", will.id);
+
+    if (!error) {
+      setIsPublic(newVisibility);
+      setShowMenu(false);
+    } else {
+      alert("Failed to update visibility. Try again.");
+    }
+    setIsTogglingVisibility(false);
+  };
+
   const handleStatusUpdate = async (newStatus: "accepted" | "declined") => {
     if (!currentUserId || !isRecipient) return;
 
@@ -245,6 +268,11 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
             {will.giver?.display_name || will.giver?.username}
           </Link>
           <p className="text-sm text-[var(--text-secondary)]">
+            {isOwner && !isPublic && (
+              <span className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] mr-1">
+                <span>🔒</span>
+              </span>
+            )}
             willing to{" "}
             {will.recipient ? (
               <Link
@@ -276,6 +304,14 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
 
             {showMenu && (
               <div className="absolute right-0 top-full mt-1 bg-[#1a1a2e] border border-[var(--card-border)] rounded-xl overflow-hidden shadow-lg z-20 min-w-[160px]">
+                <button
+                  onClick={handleToggleVisibility}
+                  disabled={isTogglingVisibility}
+                  className="w-full px-4 py-3 text-left hover:bg-white/5 transition flex items-center gap-2 disabled:opacity-50"
+                >
+                  <span>{isPublic ? "🔒" : "🌍"}</span>
+                  <span>{isTogglingVisibility ? "..." : isPublic ? "Make Private" : "Make Public"}</span>
+                </button>
                 <button
                   onClick={handleReWill}
                   className="w-full px-4 py-3 text-left hover:bg-white/5 transition flex items-center gap-2"
