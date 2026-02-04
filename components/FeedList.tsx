@@ -120,9 +120,27 @@ export function FeedList() {
             .single();
 
           if (data) {
-            setWills((prev) =>
-              prev.map((w) => (w.id === data.id ? (data as Will) : w))
-            );
+            setWills((prev) => {
+              // Check if will already exists in feed
+              const exists = prev.some((w) => w.id === data.id);
+              if (exists) {
+                // Update existing will
+                return prev.map((w) => (w.id === data.id ? (data as Will) : w));
+              } else {
+                // Will became public - add to feed at the top
+                if (!isInitialLoad.current) {
+                  setNewWillIds((prevIds) => new Set(prevIds).add(data.id));
+                  setTimeout(() => {
+                    setNewWillIds((prevIds) => {
+                      const updated = new Set(prevIds);
+                      updated.delete(data.id);
+                      return updated;
+                    });
+                  }, 3000);
+                }
+                return [data as Will, ...prev];
+              }
+            });
           }
         }
       )
