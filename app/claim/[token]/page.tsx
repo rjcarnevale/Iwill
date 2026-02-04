@@ -13,13 +13,16 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
   const supabase = await createClient();
 
   // Find the pending claim
-  const { data: claim } = await supabase
+  const { data: claim, error: claimError } = await supabase
     .from("pending_claims")
     .select("*, will:wills(*)")
     .eq("claim_token", token)
     .single();
 
+  console.log("Claim query result:", { claim, claimError, token });
+
   if (!claim) {
+    console.log("No claim found for token:", token);
     notFound();
   }
 
