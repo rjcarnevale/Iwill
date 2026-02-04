@@ -194,39 +194,39 @@ export default function NewWillPage() {
       });
     }
 
-    // Create pending claim for email recipients
+    // Send email for email recipients (trigger creates pending_claim automatically)
     if (recipientType === "email" && recipientEmail) {
-      const claimToken = crypto.randomUUID();
-
-      await supabase.from("pending_claims").insert({
-        will_id: newWill.id,
-        email: recipientEmail,
-        claim_token: claimToken,
-        claimed: false,
-      });
-
-      // Get user's profile for the giver name
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("username, display_name")
-        .eq("id", user.id)
+      // Fetch the claim token that was created by the database trigger
+      const { data: pendingClaim } = await supabase
+        .from("pending_claims")
+        .select("claim_token")
+        .eq("will_id", newWill.id)
         .single();
 
-      const giverName = profile?.display_name || profile?.username || "Someone";
-      const claimUrl = `${window.location.origin}/claim/${claimToken}`;
+      if (pendingClaim?.claim_token) {
+        // Get user's profile for the giver name
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("username, display_name")
+          .eq("id", user.id)
+          .single();
 
-      // Send email notification (fire and forget)
-      fetch("/api/notify-claim", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          recipientEmail,
-          giverName,
-          itemDescription: item,
-          claimToken,
-          claimUrl,
-        }),
-      }).catch(console.error);
+        const giverName = profile?.display_name || profile?.username || "Someone";
+        const claimUrl = `${window.location.origin}/claim/${pendingClaim.claim_token}`;
+
+        // Send email notification (fire and forget)
+        fetch("/api/notify-claim", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            recipientEmail,
+            giverName,
+            itemDescription: item,
+            claimToken: pendingClaim.claim_token,
+            claimUrl,
+          }),
+        }).catch(console.error);
+      }
 
       // Show success screen with spam warning
       setSentToEmail(recipientEmail);
