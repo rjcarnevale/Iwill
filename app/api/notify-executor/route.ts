@@ -25,47 +25,43 @@ export async function POST(request: NextRequest) {
     const { error } = await resend.emails.send({
       from: "Iwill <noreply@gotwilled.com>",
       to: executorEmail,
-      subject: "⚰️ Congratulations? You've been named someone's executor.",
+      subject: `${giverName} named you as their executor on Iwill`,
+      text: `${giverName} has named you as their executor on Iwill.\n\nWhat does this mean? When they're gone, you'll have access to distribute their digital wills to the people they chose.\n\nNo action needed right now - this is just a heads up.\n\nLearn more at gotwilled.com\n\nIwill - You can't take it with you. But you can decide who gets it.`,
       html: `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0f; color: #ffffff; padding: 40px 20px;">
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; color: #1a1a1a; padding: 40px 20px;">
           <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="font-size: 48px; margin: 0;">⚰️</h1>
+            <h1 style="font-size: 32px; margin: 0; color: #A855F7;">Iwill</h1>
           </div>
 
-          <h2 style="font-size: 24px; text-align: center; margin-bottom: 20px;">
-            Well, this is... something.
+          <h2 style="font-size: 24px; text-align: center; margin-bottom: 20px; color: #1a1a1a;">
+            You've been named an executor
           </h2>
 
-          <p style="font-size: 16px; line-height: 1.6; color: #a1a1aa;">
-            <strong style="color: #ffffff;">${giverName}</strong> has named you as their executor on Iwill.
+          <p style="font-size: 16px; line-height: 1.6; color: #444;">
+            <strong>${giverName}</strong> has named you as their executor on Iwill.
           </p>
 
-          <p style="font-size: 16px; line-height: 1.6; color: #a1a1aa;">
-            What does this mean? When they shuffle off this mortal coil, you'll get access to all their digital wills.
-            Yes, that vintage jacket. The crypto wallet password. The embarrassing photos. All yours to distribute
-            (or hoard, we don't judge).
+          <p style="font-size: 16px; line-height: 1.6; color: #444;">
+            What does this mean? When they're gone, you'll have access to distribute their digital wills to the people they chose. Think of it as being trusted with their wishes.
           </p>
 
-          <p style="font-size: 16px; line-height: 1.6; color: #a1a1aa;">
-            Is this an honor? A burden? A cry for help? Probably all three. Either way, someone trusts you
-            with their post-mortem chaos, and that's... kind of sweet? In a morbid way.
-          </p>
-
-          <div style="background: linear-gradient(90deg, #A855F7 0%, #db2777 50%, #f59e0b 100%); padding: 3px; border-radius: 12px; margin: 30px 0;">
-            <div style="background: #1a1a2e; padding: 20px; border-radius: 10px; text-align: center;">
-              <p style="margin: 0; color: #a1a1aa; font-size: 14px;">
-                No action needed right now. Just... don't die before they do?
-              </p>
-            </div>
+          <div style="background: #f5f5f5; border-radius: 8px; padding: 20px; margin: 24px 0;">
+            <p style="margin: 0; color: #666; font-size: 14px; text-align: center;">
+              No action needed right now. This is just a heads up that someone trusts you.
+            </p>
           </div>
 
-          <p style="font-size: 14px; color: #71717a; text-align: center; margin-top: 40px;">
-            💀 Iwill — You can't take it with you. But you can decide who gets it.
-          </p>
+          <div style="text-align: center; margin-top: 24px;">
+            <a href="https://gotwilled.com" style="display: inline-block; background: #A855F7; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px;">
+              Learn More About Iwill
+            </a>
+          </div>
 
-          <p style="font-size: 12px; color: #52525b; text-align: center; margin-top: 20px;">
-            This email was sent because someone named you as their executor on Iwill.
-            If you have no idea what this is about, maybe reach out to ${giverName} while you still can.
+          <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 30px 0;">
+
+          <p style="font-size: 12px; color: #999; text-align: center;">
+            You received this email because ${giverName} named you as their executor on Iwill.<br>
+            <a href="https://gotwilled.com" style="color: #A855F7;">gotwilled.com</a>
           </p>
         </div>
       `,
