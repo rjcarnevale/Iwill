@@ -50,6 +50,8 @@ export default function NewWillPage() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [sentToEmail, setSentToEmail] = useState<string | null>(null);
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -225,10 +227,44 @@ export default function NewWillPage() {
           claimUrl,
         }),
       }).catch(console.error);
+
+      // Show success screen with spam warning
+      setSentToEmail(recipientEmail);
+      setShowSuccess(true);
+      setLoading(false);
+      return;
     }
 
     router.push("/");
   };
+
+  // Success screen for email recipients
+  if (showSuccess && sentToEmail) {
+    return (
+      <main className="min-h-screen flex items-center justify-center px-4">
+        <div className="card-dark rounded-2xl p-8 max-w-md w-full text-center">
+          <div className="text-6xl mb-4">💀</div>
+          <h1 className="text-2xl font-bold mb-2">It&apos;s official</h1>
+          <p className="text-[var(--text-secondary)] mb-6">
+            We sent an email to <span className="text-white font-medium">{sentToEmail}</span> letting them know you willed them something.
+          </p>
+
+          <div className="bg-[var(--background)] border border-[var(--card-border)] rounded-xl p-4 mb-6">
+            <p className="text-sm text-[var(--text-secondary)]">
+              <span className="text-yellow-400">⚠️</span> Heads up: Our emails sometimes land in spam. Give them a heads up to check their spam folder if they don&apos;t see it.
+            </p>
+          </div>
+
+          <button
+            onClick={() => router.push("/")}
+            className="w-full gradient-cta py-3 rounded-full font-semibold hover:opacity-90 transition"
+          >
+            Back to Feed
+          </button>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen">
