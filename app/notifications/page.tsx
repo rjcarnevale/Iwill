@@ -100,6 +100,15 @@ export default function NotificationsPage() {
             </>
           ),
         };
+      case "funeral_invite":
+        return {
+          icon: "⚰️",
+          text: (
+            <>
+              <strong>{actorName}</strong> invited you to their funeral
+            </>
+          ),
+        };
       default:
         return {
           icon: "🔔",
@@ -156,7 +165,9 @@ export default function NotificationsPage() {
                 <Link
                   key={notification.id}
                   href={
-                    notification.will_id
+                    notification.type === "funeral_invite"
+                      ? `/profile/${notification.actor?.username}`
+                      : notification.will_id
                       ? `/profile/${notification.actor?.username}`
                       : "#"
                   }

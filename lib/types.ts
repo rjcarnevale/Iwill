@@ -55,7 +55,38 @@ export interface PendingClaim {
 export const REACTION_EMOJIS = ["💀", "😂", "🔥", "👀", "💰"] as const;
 export type ReactionEmoji = (typeof REACTION_EMOJIS)[number];
 
-export type NotificationType = "will_received" | "will_accepted" | "will_declined" | "reaction";
+export type NotificationType = "will_received" | "will_accepted" | "will_declined" | "reaction" | "funeral_invite";
+
+export type FuneralType = "burial" | "cremation" | "celebration_of_life" | "viking_funeral" | "surprise_me" | "other";
+export type CasketPreference = "open" | "closed" | "no_casket";
+export type GuestStatus = "invited" | "disinvited";
+
+export interface FuneralPreferences {
+  id: string;
+  user_id: string;
+  funeral_type: FuneralType | null;
+  music_playlist: string | null;
+  dress_code: string | null;
+  venue_preference: string | null;
+  casket_preference: CasketPreference | null;
+  vibe_description: string | null;
+  special_requests: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FuneralGuest {
+  id: string;
+  user_id: string;
+  guest_user_id: string | null;
+  guest_email: string | null;
+  guest_name: string | null;
+  status: GuestStatus;
+  invite_token: string;
+  created_at: string;
+  // Joined fields
+  guest_user?: Profile;
+}
 
 export interface Notification {
   id: string;

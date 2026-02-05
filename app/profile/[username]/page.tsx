@@ -121,6 +121,13 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
                   >
                     Edit profile
                   </Link>
+                  <Link
+                    href="/profile/funeral"
+                    className="px-4 py-1.5 border border-[var(--card-border)] rounded-full text-sm hover:bg-white/5 transition text-center flex items-center justify-center gap-2"
+                  >
+                    <span>⚰️</span>
+                    <span>My Funeral</span>
+                  </Link>
                   <ExportWillButton profile={profile as Profile} wills={(wills as Will[]) || []} />
                 </div>
               )}
