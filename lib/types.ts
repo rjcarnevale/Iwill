@@ -66,6 +66,7 @@ export interface FuneralPreferences {
   user_id: string;
   funeral_type: FuneralType | null;
   music_playlist: string | null;
+  spotify_playlist_url: string | null;
   dress_code: string | null;
   venue_preference: string | null;
   casket_preference: CasketPreference | null;

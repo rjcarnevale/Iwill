@@ -31,6 +31,28 @@ const DRESS_CODE_SUGGESTIONS = [
   "Whatever you want, I'll be dead",
 ];
 
+// Helper to extract Spotify playlist ID from various URL formats
+function getSpotifyPlaylistId(url: string): string | null {
+  if (!url) return null;
+
+  // Match patterns like:
+  // https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M
+  // spotify:playlist:37i9dQZF1DXcBWIGoYBM5M
+  // https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M?si=...
+
+  const patterns = [
+    /spotify\.com\/playlist\/([a-zA-Z0-9]+)/,
+    /spotify:playlist:([a-zA-Z0-9]+)/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+
+  return null;
+}
+
 export default function FuneralPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -389,16 +411,16 @@ export default function FuneralPage() {
               />
             </div>
 
-            {/* Music */}
+            {/* Music Notes */}
             <div>
               <label className="block text-sm text-[var(--text-secondary)] mb-2">
-                Music / Playlist
+                Music Notes
               </label>
               <textarea
                 value={preferences.music_playlist || ""}
                 onChange={(e) => setPreferences({ ...preferences, music_playlist: e.target.value })}
-                placeholder="Songs you want played, Spotify playlist link, or just 'play Wonderwall on repeat'..."
-                rows={3}
+                placeholder="Any specific songs, artists, or vibes you want..."
+                rows={2}
                 className="w-full bg-[var(--background)] border border-[var(--card-border)] rounded-xl py-3 px-4 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--purple)] resize-none"
               />
             </div>
@@ -423,6 +445,76 @@ export default function FuneralPage() {
               className="w-full gradient-cta py-3 rounded-full font-semibold hover:opacity-90 transition disabled:opacity-50"
             >
               {saving ? "Saving..." : "Save Preferences"}
+            </button>
+          </div>
+        </div>
+
+        {/* Funeral Playlist */}
+        <div className="card-dark rounded-2xl p-6">
+          <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+            <span>🎵</span> Funeral Playlist
+          </h3>
+
+          <p className="text-sm text-[var(--text-secondary)] mb-4">
+            Connect your Spotify playlist so everyone knows what vibes to expect.
+          </p>
+
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm text-[var(--text-secondary)] mb-2">
+                Spotify Playlist URL
+              </label>
+              <input
+                type="text"
+                value={preferences.spotify_playlist_url || ""}
+                onChange={(e) => setPreferences({ ...preferences, spotify_playlist_url: e.target.value })}
+                placeholder="https://open.spotify.com/playlist/..."
+                className="w-full bg-[var(--background)] border border-[var(--card-border)] rounded-xl py-3 px-4 text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--purple)]"
+              />
+              <p className="text-xs text-[var(--text-muted)] mt-2">
+                Paste a Spotify playlist link. Make sure the playlist is public.
+              </p>
+            </div>
+
+            {/* Spotify Embed Preview */}
+            {preferences.spotify_playlist_url && getSpotifyPlaylistId(preferences.spotify_playlist_url) && (
+              <div className="mt-4">
+                <label className="block text-sm text-[var(--text-secondary)] mb-2">
+                  Preview
+                </label>
+                <div className="rounded-xl overflow-hidden">
+                  <iframe
+                    src={`https://open.spotify.com/embed/playlist/${getSpotifyPlaylistId(preferences.spotify_playlist_url)}?utm_source=generator&theme=0`}
+                    width="100%"
+                    height="352"
+                    frameBorder="0"
+                    allowFullScreen
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                    className="rounded-xl"
+                  />
+                </div>
+              </div>
+            )}
+
+            {preferences.spotify_playlist_url && !getSpotifyPlaylistId(preferences.spotify_playlist_url) && (
+              <div className="bg-red-900/20 border border-red-900/50 rounded-xl p-4">
+                <p className="text-sm text-red-400">
+                  Couldn&apos;t recognize that Spotify URL. Make sure it&apos;s a playlist link like:<br />
+                  <code className="text-xs">https://open.spotify.com/playlist/...</code>
+                </p>
+              </div>
+            )}
+
+            <button
+              onClick={savePreferences}
+              disabled={saving}
+              className="w-full bg-[#1DB954] hover:bg-[#1ed760] py-3 rounded-full font-semibold transition disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+              </svg>
+              {saving ? "Saving..." : "Save Playlist"}
             </button>
           </div>
         </div>
