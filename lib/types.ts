@@ -27,6 +27,8 @@ export interface Will {
   recipient?: Profile;
   reactions?: Reaction[];
   reaction_counts?: ReactionCount[];
+  contests?: Contest[];
+  contest_count?: number;
 }
 
 export interface Reaction {
@@ -43,6 +45,17 @@ export interface ReactionCount {
   count: number;
 }
 
+export interface Contest {
+  id: string;
+  will_id: string;
+  contester_user_id: string;
+  comment: string | null;
+  created_at: string;
+  updated_at: string;
+  // Joined fields
+  contester?: Profile;
+}
+
 export interface PendingClaim {
   id: string;
   will_id: string;
@@ -55,7 +68,7 @@ export interface PendingClaim {
 export const REACTION_EMOJIS = ["💀", "😂", "🔥", "👀", "💰"] as const;
 export type ReactionEmoji = (typeof REACTION_EMOJIS)[number];
 
-export type NotificationType = "will_received" | "will_accepted" | "will_declined" | "reaction" | "funeral_invite";
+export type NotificationType = "will_received" | "will_accepted" | "will_declined" | "reaction" | "funeral_invite" | "will_contested";
 
 export type FuneralType = "burial" | "cremation" | "celebration_of_life" | "viking_funeral" | "surprise_me" | "other";
 export type CasketPreference = "open" | "closed" | "no_casket";

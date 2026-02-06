@@ -106,18 +106,20 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
   }
 
   // Logged out user - show the mystery teaser
+  const giverName = will.giver?.display_name || will.giver?.username || "Someone";
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#1a1a1a] to-[#0d0d0d] flex flex-col">
       <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-        {/* Coffin emoji */}
-        <div className="text-7xl mb-6 animate-bounce">⚰️</div>
+        {/* Eye emoji */}
+        <div className="text-7xl mb-6">👀</div>
 
         {/* Title */}
         <h1 className="font-['Bebas_Neue'] text-3xl md:text-4xl text-[#A855F7] tracking-wider mb-3">
-          SOMEONE LEFT YOU SOMETHING
+          {giverName.toUpperCase()} LEFT YOU SOMETHING
         </h1>
         <p className="text-[#888] text-lg mb-10">
-          (hopefully not their problems)
+          in their Will. What could it be?
         </p>
 
         {/* Mystery box */}
@@ -131,18 +133,15 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
             From
           </div>
           <div className="text-white font-semibold text-lg mb-6">
-            @{will.giver?.username || "someone"}
+            {giverName}
           </div>
 
           <div className="bg-[#1a1a1a] rounded-xl p-5">
             <div className="text-[#666] text-xs uppercase tracking-widest mb-3">
-              They willed you
+              They left you
             </div>
             <div className="font-['Bebas_Neue'] text-xl text-[#A855F7] flex items-center justify-center gap-3">
-              <span className="blur-md text-white select-none">
-                {will.item_description.toUpperCase()}
-              </span>
-              <span className="text-2xl">🔒</span>
+              <span className="text-2xl">??? 🔒</span>
             </div>
           </div>
         </div>
@@ -152,10 +151,10 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
           href={`/auth/login?redirectTo=/claim/${token}`}
           className="w-full max-w-sm bg-[#A855F7] text-white py-4 rounded-xl font-bold uppercase tracking-wide shadow-lg shadow-[#A855F7]/40 hover:opacity-90 transition text-center block mb-4"
         >
-          Sign Up to See What You Got 💀
+          Check It Out on Iwill 👀
         </Link>
         <p className="text-[#666] text-sm">
-          Free. Takes 30 seconds. Regret optional.
+          Free. Takes 30 seconds.
         </p>
       </div>
 

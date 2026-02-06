@@ -1,11 +1,61 @@
 import { createClient } from "@/lib/supabase/server";
-import { Will } from "@/lib/types";
+import { Will, Contest, Profile } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { ContestThread } from "@/components/ContestThread";
 
 interface WillPageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: WillPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient();
+
+  const { data: will } = await supabase
+    .from("wills")
+    .select(`
+      *,
+      giver:profiles!wills_giver_id_fkey(*),
+      recipient:profiles!wills_recipient_id_fkey(*)
+    `)
+    .eq("id", id)
+    .single();
+
+  if (!will) {
+    return {
+      title: "Will Not Found - Iwill",
+    };
+  }
+
+  const giverName = will.giver?.display_name || will.giver?.username || "Someone";
+  const recipientName = will.recipient?.display_name ||
+                        will.recipient?.username ||
+                        will.recipient_email ||
+                        "someone special";
+
+  const title = `${giverName} left ${recipientName} something in their Will`;
+  const description = `${giverName} left ${recipientName} something in their Will. See what it is on Iwill.`;
+
+  return {
+    title: `${title} - Iwill`,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      siteName: "Iwill",
+      images: will.image_url ? [{ url: will.image_url }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: will.image_url ? [will.image_url] : undefined,
+    },
+  };
 }
 
 const TAGS = [
@@ -47,6 +97,16 @@ export default async function WillPage({ params }: WillPageProps) {
   // Check if current user is logged in
   const { data: { user } } = await supabase.auth.getUser();
 
+  // Fetch contests
+  const { data: contests } = await supabase
+    .from("contests")
+    .select(`
+      *,
+      contester:profiles!contests_contester_user_id_fkey(*)
+    `)
+    .eq("will_id", id)
+    .order("created_at", { ascending: false });
+
   const giverName = will.giver?.display_name || will.giver?.username || "Someone";
   const recipientName = will.recipient?.display_name ||
                         will.recipient?.username ||
@@ -73,7 +133,7 @@ export default async function WillPage({ params }: WillPageProps) {
         </div>
       </header>
 
-      <div className="max-w-md mx-auto px-4 py-8">
+      <div className="max-w-md mx-auto px-4 py-8 pb-24">
         {/* Will Card */}
         <div className="card-dark rounded-2xl overflow-hidden mb-6">
           {/* User header */}
@@ -141,12 +201,20 @@ export default async function WillPage({ params }: WillPageProps) {
           <div className="px-5 pb-5">
             <div className="flex items-start justify-between gap-4 mb-3">
               <h2 className="text-xl font-bold">{will.item_description}</h2>
-              <span
-                className="text-xs font-bold uppercase shrink-0"
-                style={{ color: tag.color }}
-              >
-                {tag.name}
-              </span>
+              <div className="flex items-center gap-2 shrink-0">
+                {contests && contests.length > 0 && (
+                  <span className="flex items-center gap-1 text-xs font-bold uppercase text-amber-400">
+                    <span>Contested</span>
+                    <span>⚖️</span>
+                  </span>
+                )}
+                <span
+                  className="text-xs font-bold uppercase"
+                  style={{ color: tag.color }}
+                >
+                  {tag.name}
+                </span>
+              </div>
             </div>
 
             <p className="text-[var(--text-muted)] text-sm">
@@ -159,21 +227,31 @@ export default async function WillPage({ params }: WillPageProps) {
           </div>
         </div>
 
+        {/* Contest Thread */}
+        {contests && contests.length > 0 && (
+          <ContestThread
+            willId={id}
+            willOwnerId={will.giver_id}
+            itemDescription={will.item_description}
+            initialContests={contests as (Contest & { contester: Profile })[]}
+          />
+        )}
+
         {/* CTA for non-logged in users */}
         {!user ? (
           <div className="card-dark rounded-2xl p-6 text-center">
             <div className="text-4xl mb-3">👀</div>
             <h3 className="text-lg font-bold mb-2">
-              See what&apos;s been willed to YOU
+              Has someone left YOU something?
             </h3>
             <p className="text-[var(--text-secondary)] text-sm mb-4">
-              Join Iwill to find out if someone left you something. It&apos;s free and morbidly fun.
+              Sign up for Iwill to find out what people are leaving you in their Wills.
             </p>
             <Link
               href="/auth/login"
               className="block w-full gradient-cta py-3 rounded-full font-semibold hover:opacity-90 transition"
             >
-              Sign Up for Iwill 💀
+              Check It Out on Iwill 👀
             </Link>
             <p className="text-[var(--text-muted)] text-xs mt-3">
               You can&apos;t take it with you. But you can decide who gets it.

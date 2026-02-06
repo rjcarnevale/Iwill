@@ -246,7 +246,7 @@ export default function NewWillPage() {
           <div className="text-6xl mb-4">💀</div>
           <h1 className="text-2xl font-bold mb-2">It&apos;s official</h1>
           <p className="text-[var(--text-secondary)] mb-6">
-            We sent an email to <span className="text-white font-medium">{sentToEmail}</span> letting them know you willed them something.
+            We let <span className="text-white font-medium">{sentToEmail}</span> know that you&apos;ve left them something in your Will 👀
           </p>
 
           <div className="bg-[var(--background)] border border-[var(--card-border)] rounded-xl p-4 mb-6">

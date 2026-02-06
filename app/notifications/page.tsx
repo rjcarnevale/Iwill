@@ -64,11 +64,10 @@ export default function NotificationsPage() {
     switch (notification.type) {
       case "will_received":
         return {
-          icon: "🎁",
+          icon: "👀",
           text: (
             <>
-              <strong>{actorName}</strong> willed you{" "}
-              <strong>{notification.will?.item_description}</strong>
+              <strong>{actorName}</strong> has left you something in their Will 👀
             </>
           ),
         };
@@ -77,7 +76,7 @@ export default function NotificationsPage() {
           icon: "🙏",
           text: (
             <>
-              <strong>{actorName}</strong> accepted your will
+              <strong>{actorName}</strong> accepted what you left them
             </>
           ),
         };
@@ -86,7 +85,7 @@ export default function NotificationsPage() {
           icon: "👎",
           text: (
             <>
-              <strong>{actorName}</strong> declined your will
+              <strong>{actorName}</strong> passed on what you left them
             </>
           ),
         };
@@ -106,6 +105,16 @@ export default function NotificationsPage() {
           text: (
             <>
               <strong>{actorName}</strong> invited you to their funeral
+            </>
+          ),
+        };
+      case "will_contested":
+        const itemName = notification.will?.item_description || "your Will";
+        return {
+          icon: "⚖️",
+          text: (
+            <>
+              <strong>{actorName}</strong> has contested your Will for {itemName} ⚖️
             </>
           ),
         };
@@ -167,6 +176,8 @@ export default function NotificationsPage() {
                   href={
                     notification.type === "funeral_invite"
                       ? `/profile/${notification.actor?.username}`
+                      : notification.type === "will_contested" && notification.will_id
+                      ? `/will/${notification.will_id}`
                       : notification.will_id
                       ? `/profile/${notification.actor?.username}`
                       : "#"

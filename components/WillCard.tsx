@@ -1,11 +1,12 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
-import { Will } from "@/lib/types";
+import { Will, Contest } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ContestModal } from "./ContestModal";
 
 const TAGS = [
   // Fun ones
@@ -42,6 +43,9 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [isPublic, setIsPublic] = useState(will.is_public);
   const [isTogglingVisibility, setIsTogglingVisibility] = useState(false);
+  const [contestCount, setContestCount] = useState(0);
+  const [userContest, setUserContest] = useState<Contest | null>(null);
+  const [showContestModal, setShowContestModal] = useState(false);
   const router = useRouter();
 
   const isOwner = currentUserId === will.giver_id;
@@ -55,12 +59,13 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
   useEffect(() => {
     const supabase = createClient();
 
-    async function fetchReactions() {
+    async function fetchReactionsAndContests() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
       setCurrentUserId(user?.id || null);
 
+      // Fetch reactions
       const { data: reactionData } = await supabase
         .from("reactions")
         .select("emoji, user_id")
@@ -76,9 +81,23 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
         });
         setReactions(counts);
       }
+
+      // Fetch contests
+      const { data: contestData } = await supabase
+        .from("contests")
+        .select("*")
+        .eq("will_id", will.id);
+
+      if (contestData) {
+        setContestCount(contestData.length);
+        if (user) {
+          const myContest = contestData.find((c) => c.contester_user_id === user.id);
+          setUserContest(myContest || null);
+        }
+      }
     }
 
-    fetchReactions();
+    fetchReactionsAndContests();
   }, [will.id]);
 
   useEffect(() => {
@@ -241,7 +260,7 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
                           "someone special";
 
     const shareUrl = `${window.location.origin}/will/${will.id}`;
-    const shareText = `${giverName} willed their ${will.item_description} to ${recipientName}. See the full will:`;
+    const shareText = `${giverName} left ${recipientName} something in their Will. See what it is on Iwill.`;
     const fullMessage = `${shareText} ${shareUrl}`;
 
     // Try Web Share API first (works on mobile)
@@ -393,12 +412,23 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
       <div className="px-5 pb-4">
         <div className="flex items-start justify-between gap-4 mb-1">
           <h3 className="text-lg font-bold">{will.item_description}</h3>
-          <span
-            className="text-xs font-bold uppercase shrink-0"
-            style={{ color: tag.color }}
-          >
-            {tag.name}
-          </span>
+          <div className="flex items-center gap-2 shrink-0">
+            {contestCount > 0 && (
+              <Link
+                href={`/will/${will.id}`}
+                className="flex items-center gap-1 text-xs font-bold uppercase text-amber-400 hover:text-amber-300 transition"
+              >
+                <span>Contested</span>
+                <span>⚖️</span>
+              </Link>
+            )}
+            <span
+              className="text-xs font-bold uppercase"
+              style={{ color: tag.color }}
+            >
+              {tag.name}
+            </span>
+          </div>
         </div>
 
         {/* Accept/Decline buttons for recipient */}
@@ -466,6 +496,20 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
                   />
                 </svg>
               </button>
+              <button
+                onClick={() => setShowContestModal(true)}
+                className={`flex items-center gap-1.5 transition ${
+                  userContest ? "opacity-100" : "opacity-70 hover:opacity-100"
+                }`}
+                title={userContest ? "Edit your contest" : "Contest this will"}
+              >
+                <span className="text-lg">⚖️</span>
+                {contestCount > 0 && (
+                  <span className="text-sm font-semibold text-amber-400">
+                    {formatNumber(contestCount)}
+                  </span>
+                )}
+              </button>
             </div>
             <p className="text-xs text-[var(--text-muted)] max-w-[150px] text-right">
               {getStatusText()}
@@ -473,6 +517,31 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
           </div>
         )}
       </div>
+
+      {/* Contest Modal */}
+      {showContestModal && (
+        <ContestModal
+          willId={will.id}
+          willOwnerId={will.giver_id}
+          itemDescription={will.item_description}
+          existingComment={userContest?.comment}
+          isEditing={!!userContest}
+          onClose={() => setShowContestModal(false)}
+          onContested={(comment) => {
+            if (!userContest) {
+              setContestCount((prev) => prev + 1);
+            }
+            setUserContest({
+              id: userContest?.id || "temp",
+              will_id: will.id,
+              contester_user_id: currentUserId || "",
+              comment,
+              created_at: userContest?.created_at || new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            });
+          }}
+        />
+      )}
     </article>
   );
 }
