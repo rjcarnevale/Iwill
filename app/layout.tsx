@@ -4,7 +4,21 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Iwill - Your Digital Last Laughs",
   description:
-    "The social app for willing your stuff to people. Because someone should get your vintage jacket.",
+    "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
+  openGraph: {
+    title: "Someone left you something in their Will",
+    description:
+      "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
+    type: "website",
+    siteName: "Iwill",
+    url: "https://gotwilled.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Someone left you something in their Will",
+    description:
+      "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
+  },
 };
 
 export default function RootLayout({
