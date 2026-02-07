@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
   openGraph: {
-    title: "Someone left you something in their Will",
+    title: "💀 Someone left you something in their Will",
     description:
       "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
     type: "website",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Someone left you something in their Will",
+    title: "💀 Someone left you something in their Will",
     description:
       "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
   },
