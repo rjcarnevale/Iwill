@@ -4,11 +4,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Iwill - Your Digital Last Laughs",
   description:
-    "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
+    "Wills, drama, and questionable inheritance decisions. Welcome to Iwill.",
   openGraph: {
     title: "💀 Someone left you something in their Will",
     description:
-      "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
+      "Wills, drama, and questionable inheritance decisions. Welcome to Iwill.",
     type: "website",
     siteName: "Iwill",
     url: "https://gotwilled.com",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "💀 Someone left you something in their Will",
     description:
-      "Find out what you've been willed before it's too late. Iwill — where your last wishes go viral.",
+      "Wills, drama, and questionable inheritance decisions. Welcome to Iwill.",
   },
 };
 

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { Will, Contest, Profile } from "@/lib/types";
+import { getShareDescription } from "@/lib/share-descriptions";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -30,27 +31,22 @@ export async function generateMetadata({ params }: WillPageProps): Promise<Metad
     };
   }
 
-  const giverName = will.giver?.display_name || will.giver?.username || "Someone";
-  const recipientName = will.recipient?.display_name ||
-                        will.recipient?.username ||
-                        will.recipient_email ||
-                        "someone special";
-
-  const title = `${giverName} left ${recipientName} something in their Will`;
-  const description = `${giverName} left ${recipientName} something in their Will. See what it is on Iwill.`;
+  const title = "💀 Someone left you something in their Will";
+  // Use the stored description index for consistent link previews
+  const description = getShareDescription(will.share_description_index);
 
   return {
     title: `${title} - Iwill`,
     description,
     openGraph: {
-      title: `💀 ${title}`,
+      title,
       description,
       type: "website",
       siteName: "Iwill",
     },
     twitter: {
       card: "summary_large_image",
-      title: `💀 ${title}`,
+      title,
       description,
     },
   };

@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { Profile } from "@/lib/types";
+import { getRandomDescriptionIndex } from "@/lib/share-descriptions";
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 import Image from "next/image";
@@ -143,6 +144,7 @@ export default function NewWillPage() {
       giver_id: string;
       item_description: string;
       is_public: boolean;
+      share_description_index: number;
       emoji?: string;
       image_url?: string;
       tag?: string;
@@ -152,6 +154,7 @@ export default function NewWillPage() {
       giver_id: user.id,
       item_description: item,
       is_public: isPublic,
+      share_description_index: getRandomDescriptionIndex(),
     };
 
     if (selectedEmoji) {

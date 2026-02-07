@@ -21,6 +21,7 @@ export interface Will {
   tag: string | null;
   is_public: boolean;
   status: WillStatus;
+  share_description_index: number | null;
   created_at: string;
   // Joined fields
   giver?: Profile;

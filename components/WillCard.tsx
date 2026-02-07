@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { Will, Contest } from "@/lib/types";
+import { getRandomShareDescription } from "@/lib/share-descriptions";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -253,21 +254,16 @@ export function WillCard({ will, showActions = true, onDelete }: WillCardProps) 
   };
 
   const handleShare = async () => {
-    const giverName = will.giver?.display_name || will.giver?.username || "Someone";
-    const recipientName = will.recipient?.display_name ||
-                          will.recipient?.username ||
-                          will.recipient_email ||
-                          "someone special";
-
     const shareUrl = `${window.location.origin}/will/${will.id}`;
-    const shareText = `${giverName} left ${recipientName} something in their Will. See what it is on Iwill.`;
+    // Pick a random description for each share
+    const shareText = getRandomShareDescription();
     const fullMessage = `${shareText} ${shareUrl}`;
 
     // Try Web Share API first (works on mobile)
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `${giverName}'s Will on Iwill`,
+          title: "💀 Someone left you something in their Will",
           text: shareText,
           url: shareUrl,
         });
