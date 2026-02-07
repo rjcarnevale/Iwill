@@ -43,17 +43,15 @@ export async function generateMetadata({ params }: WillPageProps): Promise<Metad
     title: `${title} - Iwill`,
     description,
     openGraph: {
-      title,
+      title: `💀 ${title}`,
       description,
       type: "website",
       siteName: "Iwill",
-      images: will.image_url ? [{ url: will.image_url }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: `💀 ${title}`,
       description,
-      images: will.image_url ? [will.image_url] : undefined,
     },
   };
 }
