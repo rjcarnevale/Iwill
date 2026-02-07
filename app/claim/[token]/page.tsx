@@ -46,6 +46,7 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
   }
 
   // If user is logged in and claim hasn't been processed, link it
+  let updatedWill = will;
   if (user && !claim.claimed) {
     // Update the will to set recipient_id
     await supabase
@@ -58,6 +59,21 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
       .from("pending_claims")
       .update({ claimed: true })
       .eq("id", claim.id);
+
+    // Re-fetch the will with updated recipient_id
+    const { data: refreshedWill } = await supabase
+      .from("wills")
+      .select(`
+        *,
+        giver:profiles!wills_giver_id_fkey(*),
+        recipient:profiles!wills_recipient_id_fkey(*)
+      `)
+      .eq("id", claim.will_id)
+      .single();
+
+    if (refreshedWill) {
+      updatedWill = refreshedWill;
+    }
   }
 
   // Logged in user - show the revealed will
@@ -71,12 +87,12 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
               IT&apos;S YOURS!
             </h1>
             <p className="text-[var(--text-secondary)]">
-              Here&apos;s what {will.giver?.display_name || will.giver?.username || "someone"} left you.
+              Here&apos;s what {updatedWill.giver?.display_name || updatedWill.giver?.username || "someone"} left you.
             </p>
           </div>
 
           <div className="mb-8">
-            <WillCard will={will as Will} showActions={false} />
+            <WillCard will={updatedWill as Will} showActions={true} />
           </div>
 
           <div className="space-y-3">
